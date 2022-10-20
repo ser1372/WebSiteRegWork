@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=DM+Mono&family=Gothic+A1&family=Montserrat:wght@300&family=Poppins&family=Roboto:ital@1&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background:url("./assets/bg-main.png") no-repeat;
+    font-family: 'Poppins', sans-serif;
+}
+
+.arrow::before{
+    content: '';
+  background: url("../assets/arrow.png") left center no-repeat;
+  padding-left: 35px;
+  padding-top:5px;
+  width: 28px;
+  height: 28px;
+
+}
