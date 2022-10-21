@@ -1,22 +1,31 @@
 <template>
-    <form class=" flex justify-center mt-[200px]">
+    <form class=" flex justify-center mt-[200px]" @submit="register">
         <div class="w-[380px] h-[569px]">
-            <h2 class="text-[22px] font-[600] arrow mb-[24px] text-white cursor-pointer inline-block"  @click="$router.go(-1)">Individual </h2>
+            <h2 class="text-[22px] font-[600] arrow mb-[24px] text-white cursor-pointer inline-block"
+                @click="$router.go(-1)">Individual </h2>
             <div class="w-[100%] h-[392px]">
+
+
+
                 <label class="text-[12px] font-[400] text-gray-400 ">Name</label>
                 <input type="text" placeholder="Enter Name "
-                    class="mb-[24px] w-[100%] h-[56px]  rounded-[12px] font-[400] text-[14px] text-gray-400 img-input-name-user" />
+                  class="mb-[24px] w-[100%] h-[56px]  rounded-[12px] font-[400] text-[14px] text-gray-400 img-input-name-user"  v-model="name" />
+
+
 
                 <label class="text-[12px] font-[400] text-gray-400 ">Create Username</label>
-                <input-component />
-
                 <input type="text" placeholder="Enter Username "
-                    class="mb-[24px] w-[100%] h-[56px] img-input-name-user rounded-[12px] font-[400] text-[14px] text-gray-400" />
+                   class="mb-[24px] w-[100%] h-[56px] img-input-name-user rounded-[12px] font-[400] text-[14px] text-gray-400" v-model="username" />
+
+
 
 
                 <label class="text-[12px] font-[400] text-gray-400 ">Email address</label>
                 <input type="email" placeholder="Enter email address "
-                    class="mb-[24px] w-[100%] h-[56px] img-input-email rounded-[12px] font-[400] text-[14px] text-gray-400" />
+                    class="mb-[24px] w-[100%] h-[56px] img-input-email rounded-[12px] font-[400] text-[14px] text-gray-400" v-model="email"/>
+
+
+
 
                 <label class="text-[12px] font-[400] text-gray-400 ">Password</label>
                 <input type="password" placeholder="Enter Password "
@@ -26,6 +35,8 @@
                 <input type="text" placeholder="Enter Password "
                     class="mb-[24px] w-[100%] h-[56px] img-input-password rounded-[12px] font-[400] text-[14px] text-gray-400"
                     v-model="password" v-show="showPass" />
+
+
 
                 <button class="btn-eye" @click="showPass  = !showPass">
                     <svg v-show="showPass" width="24" height="25" viewBox="0 0 24 25" fill="none"
@@ -37,8 +48,8 @@
                             stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
 
-                    <svg xmlns="http://www.w3.org/2000/svg" v-show="!showPass" width="24" height="25" fill="currentColor"
-                        class="bi bi-eye-slash text-gray-400" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" v-show="!showPass" width="24" height="25"
+                        fill="currentColor" class="bi bi-eye-slash text-gray-400" viewBox="0 0 16 16">
                         <path
                             d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z" />
                         <path
@@ -48,12 +59,38 @@
                     </svg>
                 </button>
 
-                <button
+                <button  
                     class="text-center w-[100%] h-[56px] mb-[14px] bg-[#FA4D3A] rounded-[12px] text-[14px] font-[600] text-white">Next</button>
             </div>
         </div>
     </form>
 </template>
+
+
+<script>
+
+export default {
+    name:"SignUp",
+    data() {
+        return {
+            password: "",
+            name:"",
+            username:"",
+            email:"",
+            showPass: false,
+        };
+    },
+    methods: {
+        register(event){
+            event.preventDefault();
+            this.axios
+    .post(`http://localhost:8000/api/auth/users/`, { 'username': this.username, 'password': this.password })
+    .then(response => { this.$router.push('/auth/signin') })
+    .catch(err => { console.error(err) })
+        }
+    }
+}
+</script> 
 
 
 <style scoped>
@@ -107,14 +144,3 @@ input {
 </style>
 
 
-<script>
-
-export default {
-    data() {
-        return {
-            password: '',
-            showPass: false,
-        }
-    }
-}
-</script>

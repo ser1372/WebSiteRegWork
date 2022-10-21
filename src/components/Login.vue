@@ -6,7 +6,10 @@
             
                 <label class="text-[12px] font-[400] text-gray-400 ">Email address</label>
                 <input type="text" placeholder="Enter email address"
-                    class="mb-[24px] w-[100%] h-[56px] img-input-email rounded-[12px] font-[400] text-[14px] text-gray-400" />
+                    class="mb-[24px] w-[100%] h-[56px] img-input-email rounded-[12px] font-[400] text-[14px] text-gray-400" 
+                    v-model="username"
+                    
+                    />
                    
                 <label class="text-[12px] font-[400] text-gray-400 ">Password</label>
               
@@ -41,14 +44,45 @@
                 </button>
                 <router-link to = "/resetpassword" href="#" class="absolute mt-[-20px] ml-[220px] text-[#FA4D3A]  text-[14px]">Forgot password?</router-link>
                 <button
-                    class="text-center w-[100%] h-[56px] mb-[14px] bg-[#FA4D3A] rounded-[12px] text-[14px] font-[600] text-white">Next</button>
+                    class="text-center w-[100%] h-[56px] mb-[14px] bg-[#FA4D3A] rounded-[12px] text-[14px] font-[600] text-white" @submit="login">Next</button>
                     <button
                     class="google-icon text-center w-[100%] h-[56px] mb-[14px] bg-[#FFFF] rounded-[12px] text-[14px] font-[600] text-black">Login with Google</button>
+
                     <p class="text-[14px] text-white font-[400] text-center">Don’t have an account?  <router-link to = "/choosen" class="text-[#FA4D3A]">Sign Up</router-link></p>
             </div>
         </div>
     </form>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            username:"",
+            password: "",
+            showPass: false,
+        };
+    },
+    methods:{
+        login(event){
+            event.preventDefault();
+
+            //logic authorize
+            this.axios
+    .post(`http://localhost:8000/api/auth/token/`, { 'username': this.username, 'password': this.password })
+    .then(response => { this.setLogined(response.data.token) })
+    .catch(err => { console.error(err) })
+        },
+
+        
+        setLogined(token){
+            console.log(token);
+            
+        }
+    }
+}
+</script>
+
 
 
 <style scoped>
@@ -106,15 +140,3 @@ input {
 }
 </style>
 
-
-<script>
-
-export default {
-    data() {
-        return {
-            password: '',
-            showPass: false,
-        }
-    }
-}
-</script>

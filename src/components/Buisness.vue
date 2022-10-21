@@ -1,5 +1,5 @@
 <template>
-    <form class=" flex justify-center mt-[200px]">
+    <form class=" flex justify-center mt-[200px]" @submit="register">
         <div class="w-[380px] h-[569px]">
             <h2 class="text-[22px] font-[600] arrow mb-[24px] text-white cursor-pointer inline-block"  @click="$router.go(-1)">Business</h2>
             <div class="w-[100%] h-[392px]">
