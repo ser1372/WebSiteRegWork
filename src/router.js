@@ -9,7 +9,7 @@ import ResetPassword from './components/ResetPassword.vue';
 export default createRouter({
     history: createWebHashHistory(),
     routes:[
-        {path: '/login', component: Login, alias:'/',name: 'SignUp', },
+        {path: '/login', component: Login, alias:'/', name: 'SignIn', },
         { path: '/choosen', component: Choose},
         { path: '/individual', 
         component: Individual,

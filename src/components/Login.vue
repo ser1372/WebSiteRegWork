@@ -56,31 +56,23 @@
 
 <script>
 export default {
-    data() {
-        return {
-            username:"",
-            password: "",
-            showPass: false,
-        };
-    },
-    methods:{
-        login(event){
-            event.preventDefault();
-
-            //logic authorize
-            this.axios
+ name: "SignIn",
+ data() {
+   return {
+     username: "",
+     password: ""
+   };
+ },
+ methods: {
+   login(event) {
+     event.preventDefault();
+     this.axios
     .post(`http://localhost:8000/api/auth/token/`, { 'username': this.username, 'password': this.password })
     .then(response => { this.setLogined(response.data.token) })
     .catch(err => { console.error(err) })
-        },
-
-        
-        setLogined(token){
-            console.log(token);
-            
-        }
-    }
-}
+    },
+ }
+};
 </script>
 
 
